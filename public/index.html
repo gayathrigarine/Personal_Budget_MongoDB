@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Budget App</title>
+    <!-- This is an SEO Change -->
+    <meta
+      name="description"
+      content="A free personal budget app to help you manage your finances effectively."
+    />
+    <!-- This is an SEO Change -->
+    <meta
+      name="keywords"
+      content="budgeting, personal finance, free app, financial management"
+    />
+    <!-- This is an SEO Change -->
+    <link rel="canonical" href="https://example.com/personal-budget" />
+    <!-- This is an SEO Change -->
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <a href="#main" class="skip">Skip to content</a>
+    <header role="banner">
+      <!-- This is a Semantic HTML Change -->
+      <nav aria-label="Main navigation">
+        <!-- This is an A11y Change -->
+        <ul>
+          <li><a href="./">Home</a></li>
+          <!-- This is a Semantic HTML Change -->
+          <li><a href="./about.html">About</a></li>
+          <!-- This is a Semantic HTML Change -->
+          <li><a href="./login.html">Login</a></li>
+          <!-- This is a Semantic HTML Change -->
+          <li><a href="https://google.com">Google</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <!-- This is a Semantic HTML Change -->
+      <h1>Personal Budget</h1>
+      <h2>A personal-budget management app</h2>
+    </section>
+
+    <main class="center" id="main">
+      <section class="page-area">
+        <!-- This is a Semantic HTML Change -->
+        <article aria-labelledby="stay-on-track">
+          <!-- This is an A11y Change -->
+          <h1 id="stay-on-track">Stay on track</h1>
+          <p>
+            Do you know where you are spending your money? If you really stop to
+            track it down, you would get surprised! Proper budget management
+            depends on real data... and this app will help you with that!
+          </p>
+        </article>
+
+        <article aria-labelledby="alert">
+          <!-- This is an A11y Change -->
+          <h1 id="alert">Alerts</h1>
+          <p>
+            What if your clothing budget ended? You will get an alert. The goal
+            is to never go over the budget.
+          </p>
+        </article>
+
+        <article aria-labelledby="results">
+          <!-- This is an A11y Change -->
+          <h1 id="results">Results</h1>
+          <p>
+            People who stick to a financial plan, budgeting every expense, get
+            out of debt faster! Also, they to live happier lives... since they
+            expend without guilt or fear... because they know it is all good and
+            accounted for.
+          </p>
+        </article>
+
+        <article aria-labelledby="free">
+          <!-- This is an A11y Change -->
+          <h1 id="free">Free</h1>
+          <p>This app is free!!! And you are the only one holding your data!</p>
+        </article>
+
+        <article aria-labelledby="stay-on-track">
+          <!-- This is an A11y Change -->
+          <h1 id="stay-on-track">Stay on track</h1>
+          <p>
+            Do you know where you are spending your money? If you really stop to
+            track it down, you would get surprised! Proper budget management
+            depends on real data... and this app will help you with that!
+          </p>
+        </article>
+
+        <article aria-labelledby="alert">
+          <!-- This is an A11y Change -->
+          <h1 id="alert">Alerts</h1>
+          <p>
+            What if your clothing budget ended? You will get an alert. The goal
+            is to never go over the budget.
+          </p>
+        </article>
+
+        <article aria-labelledby="results">
+          <!-- This is an A11y Change -->
+          <h1 id="alert">Results</h1>
+          <p>
+            People who stick to a financial plan, budgeting every expense, get
+            out of debt faster! Also, they to live happier lives... since they
+            expend without guilt or fear... because they know it is all good and
+            accounted for.
+          </p>
+        </article>
+
+        <article aria-labelledby="chart" aria-live="polite">
+          <!-- This is an A11y Change -->
+          <h1 id="chart">Chart</h1>
+          <p>
+            <canvas
+              id="myChart"
+              width="400"
+              height="400"
+              aria-label="Budget pie chart"
+              role="img"
+            ></canvas
+            ><!-- This is an A11y Change -->
+          </p>
+        </article>
+        <article aria-labelledby="D3Chart" aria-live="polite">
+          <!-- This is an A11y Change -->
+          <h1 id="chart">D3Chart</h1>
+          <svg id="d3ChartSvg" width="960" height="450"></svg>
+        </article>
+      </section>
+    </main>
+
+    <footer class="bottom" role="contentinfo">
+      <!-- This is a Semantic HTML Change -->
+      <div class="center">All rights reserved &copy; Gayathri Garine</div>
+    </footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
+      integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+      integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script>
+      var dataSource = {
+        datasets: [
+          {
+            data: [],
+            backgroundColor: [
+              '#ffcd56',
+              '#ff6384',
+              '#36a2eb',
+              '#fd6b19',
+              '#4bc0c0',
+              '#9966ff',
+              '#c9cbcf',
+            ],
+          },
+        ],
+        labels: [],
+      };
+
+      function createChart() {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myPieChart = new Chart(ctx, {
+          type: 'pie',
+          data: dataSource,
+        });
+      }
+
+      function createD3Chart(data) {
+        var width = 960,
+          height = 450,
+          radius = Math.min(width, height) / 2;
+
+        d3.select('#d3ChartSvg').selectAll('*').remove();
+
+        var svg = d3
+          .select('#d3ChartSvg')
+          .attr('width', width)
+          .attr('height', height)
+          .append('g')
+          .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+
+        var pie = d3.layout.pie().value(function (d) {
+          return d.budget;
+        });
+
+        var arc = d3.svg
+          .arc()
+          .innerRadius(radius * 0.8)
+          .outerRadius(radius * 0.4);
+        var outerArc = d3.svg
+          .arc()
+          .innerRadius(radius * 0.9)
+          .outerRadius(radius * 0.9);
+        svg.attr(
+          'transform',
+          'translate(' + width / 2 + ',' + height / 2 + ')'
+        );
+
+        var key = function (d) {
+          return d.data.label;
+        };
+        var color = d3.scale
+          .ordinal()
+          .range([
+            '#ffcd56',
+            '#ff6384',
+            '#36a2eb',
+            '#fd6b19',
+            '#4bc0c0',
+            '#9966ff',
+            '#c9cbcf',
+            '#FF0000',
+          ]);
+
+        var g = svg
+          .selectAll('.arc')
+          .data(pie(data))
+          .enter()
+          .append('g')
+          .attr('class', 'arc');
+
+        g.append('path')
+          .attr('d', arc)
+          .style('fill', function (d) {
+            return color(d.data.title);
+          });
+
+        var text = svg
+          .selectAll('text')
+          .data(pie(data))
+          .enter()
+          .append('text')
+          .attr('transform', function (d) {
+            var pos = outerArc.centroid(d);
+            pos[0] = radius * (midAngle(d) < Math.PI ? 1 : -1);
+            return 'translate(' + pos + ')';
+          })
+          .attr('dy', '.35em')
+          .style('text-anchor', function (d) {
+            return midAngle(d) < Math.PI ? 'start' : 'end';
+          })
+          .text(function (d) {
+            return d.data.title;
+          });
+
+        var polyline = svg
+          .selectAll('polyline')
+          .data(pie(data))
+          .enter()
+          .append('polyline')
+          .attr('points', function (d) {
+            var pos = outerArc.centroid(d);
+            pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+            return [arc.centroid(d), outerArc.centroid(d), pos];
+          })
+          .style('fill', 'none')
+          .style('stroke', 'black')
+          .style('stroke-width', '2px')
+          .style('opacity', 0.3);
+      }
+      function midAngle(d) {
+        return d.startAngle + (d.endAngle - d.startAngle) / 2;
+      }
+      function getBudget() {
+        axios
+          .get('http://localhost:3000/budget')
+          .then(function (res) {
+            dataSource.datasets[0].data = [];
+            dataSource.labels = [];
+            for (var i = 0; i < res.data.myBudget.length; i++) {
+              dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
+              dataSource.labels[i] = res.data.myBudget[i].title;
+            }
+            createChart();
+            createD3Chart(res.data.myBudget);
+          })
+          .catch(function (error) {
+            console.log('Error fetching data:', error);
+          });
+      }
+
+      getBudget();
+    </script>
+  </body>
+</html>

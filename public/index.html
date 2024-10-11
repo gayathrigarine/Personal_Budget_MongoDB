@@ -179,6 +179,12 @@
       }
 
       function createD3Chart(data) {
+        console.log(data);
+
+        if (!data || data.length === 0) {
+          console.error('No data available for the D3 chart.');
+          return;
+        }
         var width = 960,
           height = 450,
           radius = Math.min(width, height) / 2;
@@ -193,7 +199,7 @@
           .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
         var pie = d3.layout.pie().value(function (d) {
-          return d.budget;
+          return typeof d.value === 'number' ? d.value : 0;
         });
 
         var arc = d3.svg
@@ -278,14 +284,19 @@
         axios
           .get('http://localhost:3000/budget')
           .then(function (res) {
+            console.log(res.data);
             dataSource.datasets[0].data = [];
             dataSource.labels = [];
-            for (var i = 0; i < res.data.myBudget.length; i++) {
-              dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
-              dataSource.labels[i] = res.data.myBudget[i].title;
+            if (res.data.myBudget && res.data.myBudget.length > 0) {
+              res.data.myBudget.forEach((item, index) => {
+                dataSource.datasets[0].data[index] =
+                  typeof item.value === 'number' ? item.value : 0;
+                dataSource.labels[index] = item.title || 'Unknown';
+              });
+              console.log(dataSource);
+              createChart();
+              createD3Chart(res.data.myBudget);
             }
-            createChart();
-            createD3Chart(res.data.myBudget);
           })
           .catch(function (error) {
             console.log('Error fetching data:', error);

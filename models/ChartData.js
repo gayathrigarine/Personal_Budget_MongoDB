@@ -18,7 +18,7 @@ async function loadChartData() {
   try {
     const fetch = (await import('node-fetch')).default;
 
-    const response = await fetch('http://localhost:3000/api/chart-data');
+    const response = await fetch('http://localhost:3000/budget');
     const data = await response.json();
     console.log('Fetched chart data:', data);
   } catch (error) {
